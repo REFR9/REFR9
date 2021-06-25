@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <litle>Autentificacion</litle>
+
+        <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-analytics.js"></script>
+
+<script src="js/init.js"></script>
+    </head>
+    <body>
+        <h1>Autentificacion</h1>
+        <h1>Sesión</h1>
+        <fieldset>
+            <legend>Email</legend>
+            <output id="email"><progress max="100">Cargando...</progress></output>
+        </fieldset>
+        <fieldset>
+            <legend>Nombre</legend>
+            <output id="nombre"></output>
+        </fieldset>
+        <figure><img type="button" onclick="terminaSesión()">Terminar Sesión</figure>
+        <footer>Copyright &copy; 2021 Ruben Franco</footer>
+        <script>
+            const auth = firebase.auth();
+            const provider = new firebase.auth.GoogleAuthProvider();
+            provider.setCustomParameters({ prompt: "select_account"});
+            auth.onAuthStateChanged(
+                usuarioAuth => {
+                    if(usuarioAuth && usuarioAuth.email){
+                        email.value = usuarioAuth.email;
+                        nombre.value = usuarioAuth.displayName;
+                        avatar.src = usuarioAuth.photoURL;
+                    }else{
+                        auth.signInWithRedirect(provider);
+                    }
+                },
+                procesaError
+            );
+            async function terminaSesión(){
+                try{
+                    await auth.signOut();
+                } catch(e) {
+                    procesaError(E);
+                }
+            }
+
+            function procesaError(e){
+                console.log(e);
+                alert(e.message);
+            }
+        </script>
+    </body>
+</html>
