@@ -52,6 +52,7 @@
             nombre.value = usuarioAuth.displayName;
             // @ts-ignore Muestra el avatar registrado en Google.
             avatar.src = usuarioAuth.photoURL;
+            <button onclick="location.href='https://www.facebook.com'">Llévame a otro lado</button>
           } else {
             // No ha iniciado sesión. Pide datos para iniciar sesión.
             auth.signInWithRedirect(provider); 
