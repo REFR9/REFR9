@@ -26,7 +26,6 @@
     </fieldset>
     <figure><img id="avatar" alt="Avatar"></figure>
     <button type="button" onclick="terminaSesión()">Terminar Sesión</button>
-    <button type="button" onclick="otraPagina()">Portada</button>
     <footer>Copyright &copy; 2021 Franco Ruben.</footer>
     <script>
       //@ts-check
@@ -69,9 +68,6 @@
           procesaError(e);
         }
       }
-      function otraPagina(){
-     href="index_9.html";
-      }
       /** Procesa un error. Muestra el objeto en la consola y un cuadro de
        * alerta con el mensaje.
        * @param {Error} e descripción del error. */
@@ -80,5 +76,6 @@
         alert(e.message);
       }
     </script>
+    <a href="index_9.html"></a>
   </body>
 </html>
