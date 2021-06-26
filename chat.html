@@ -26,7 +26,7 @@ and open the template in the editor.
         <script>
             //@ts-check
             /** Nombre de usuario autentificado por firebase. */
-            let usuario = "";
+            let usu = "";
             /** Conexion al sistema de autentificacion de Firebase. */
             //@ts-ignore
             const auth = firebase.auth();
@@ -41,10 +41,10 @@ and open the template in the editor.
             auth.onAuthStateChanged(
             /** Recibe las caracteristicas del usuario o null si no ha iniciado        
              * sesion  */
-            async usuarioAuth => {
-                if (usuarioAuth && usuarioAuth.email){
+            async usuAuth => {
+                if (usuAuth && usuAuth.email){
                     //usuario aceptado
-                    usuario = usuarioAuth.email;
+                    usu = usuAuth.email;
                     //Muestra los mensajes del chat
                     muestraMensajes();
                 } else {
