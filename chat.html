@@ -29,11 +29,11 @@ and open the template in the editor.
             let usu = "";
             /** Conexion al sistema de autentificacion de Firebase. */
             //@ts-ignore
-             const provider = new firebase.auth.GoogleAuthProvider();
+            const provider = new firebase.auth.GoogleAuthProvider();
 
             /** Tipo de autentificacion de usuarios. En este caso es con Google. */
             //@ts-ignore
-                       const auth = firebase.auth();
+            const auth = firebase.auth();
             /* Configura el proveedor de Google para que permita seleccionar de una 
              * lista. */
             provider.setCustomParameters({ promt: "select_account"});
