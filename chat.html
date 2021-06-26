@@ -6,7 +6,7 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>Chat General</title>
+        <title>TODO supply a title</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-analytics.js"></script>
@@ -17,22 +17,20 @@ and open the template in the editor.
     <body>
         <h1>Chat</h1>
         <form action="javascript:agrega();">
-            <input id="txt" type="text" required placeholder="Mensaje">
+            <input id="texto" type="text" required placeholder="Mensaje">
             <button>Enviar</button>
-            <a href="index_9.html"><h2><p class="blanco">Portada</p></h2></a>
         </form>
         <ol id="mensajes"><li><progress max="100">Cargando....</progress></li></ol>
         <script>
             //@ts-check
             /** Nombre de usuario autentificado por firebase. */
-            let usu = "";
+            let usuario = "";
             /** Conexion al sistema de autentificacion de Firebase. */
             //@ts-ignore
-            const provider = new firebase.auth.GoogleAuthProvider();
-
+            const auth = firebase.auth();
             /** Tipo de autentificacion de usuarios. En este caso es con Google. */
             //@ts-ignore
-            const auth = firebase.auth();
+            const provider = new firebase.auth.GoogleAuthProvider();
             /* Configura el proveedor de Google para que permita seleccionar de una 
              * lista. */
             provider.setCustomParameters({ promt: "select_account"});
@@ -41,10 +39,10 @@ and open the template in the editor.
             auth.onAuthStateChanged(
             /** Recibe las caracteristicas del usuario o null si no ha iniciado        
              * sesion  */
-            async usuAuth => {
-                if (usuAuth && usuAuth.email){
+            async usuarioAuth => {
+                if (usuarioAuth && usuarioAuth.email){
                     //usuario aceptado
-                    usu = usuAuth.email;
+                    usuario = usuarioAuth.email;
                     //Muestra los mensajes del chat
                     muestraMensajes();
                 } else {
@@ -64,12 +62,13 @@ and open the template in the editor.
          * "Usuario","Texto" y "Timestamp" son los nombre de los campos en el 
          * documento.
          * El timestamp contiene la fecha y hora en que se agrega el registro*/
-        firestore.collection('posts').doc().set({
-        Fecha: fecha,
-        Texto: txt,
-        Usu: usu,
+        firestore.collection("MENSAJE").add({
+            USUARIO: usuario,
+            //@ts-ignore
+            TEXTO: texto.value.trim(),
+            //@ts-ignore
             TIMESTAMP: firebase.firebase.firestore.FieldValue.serverTimestamp()
-    })
+        });
     }
     /** Muestra los mensajes almacenados en la collection "MENSAJE". Se
      * actualiza automaticamente.*/
@@ -101,7 +100,7 @@ and open the template in the editor.
                            * para evitar inyeccion de codigo*/
                           //@ts-ignore
                           mensaje.innerHTML += /* html */
-                          `<li><u>${cod(data.usu)}</u> ${dformat}<br>${cod(data.txt)}</li>`;
+                          `<li><u>${cod(data.USUARIO)}</u> ${dformat}<br>${cod(data.TEXTO)}</li>`;
                     })
                 },
                 /*Funcion que se invoca cuando hay un error, Muestra el error
@@ -131,8 +130,8 @@ and open the template in the editor.
      * pueda interpretar como HTML. Esta tecnica evita la inyeccion de codigo
      * @param{string} texto
      * @returns{string} un texto que no puede interpretarse como HTML*/
-    function cod(txt){
-        return (txt || "").replace(/[&<>"']/g,letra => codMap.get(letra));
+    function cod(texto){
+        return (texto || "").replace(/[&<>"']/g,letra => codMap.get(letra));
     }
         </script>
     </body>
