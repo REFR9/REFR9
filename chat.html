@@ -30,6 +30,7 @@ and open the template in the editor.
             let usuario = "";
             /** Conexion al sistema de autentificacion de Firebase. */
             //@ts-ignore
+            const auth = firebase.auth();
             const provider = new firebase.auth.GoogleAuthProvider();            
             /** Tipo de autentificacion de usuarios. En este caso es con Google. */
             //@ts-ignore
